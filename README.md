@@ -1,46 +1,83 @@
-# React + TypeScript + Vite
+# Pixi.js Space Battle Arena Engine With React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance, real-time 2D space battle game built with Pixi.js and a custom Entity-Component-System (ECS) architecture.
 
-Currently, two official plugins are available:
+# How the Code Works
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The game is structured using ECS (Entity-Component-System), similar to building with LEGO:
 
-## Expanding the ESLint configuration
+Entity: An empty object
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Components: Data pieces like position, velocity, or health
 
-```js
-export default tseslint.config({
-  extends: [
-    ...tseslint.configs.recommendedTypeChecked,
-    ...tseslint.configs.strictTypeChecked,
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Systems: Logic that acts on entities with specific components (like movement, AI, rendering)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# Code Structure Overview
 
-```js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Main App Files (src/)
 
-export default tseslint.config({
-  plugins: {
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+game.ts: Starts the Pixi.js app and runs the main game loop
+
+Logger.ts: Prints debug logs to the console
+
+playerActions.ts: Connects UI buttons to gameplay logic
+
+ParallaxBackground.ts: Scrolls background layers to add depth
+
+UIOverlay.ts: Handles HUD elements like score and health
+
+# Engine System Files (src/ecs/)
+
+World.ts: Manages all entities and systems in the game
+
+Entity.ts: Represents an individual game object with components
+
+System.ts: Base class used by all systems
+
+PlayerSystem.ts: Handles player input and controls the player ship
+
+EnemySystem.ts: Updates and renders enemy ships
+
+BehaviorSystem.ts: AI logic for enemies (seek, dodge, retreat)
+
+MovementSystem.ts: Moves entities based on velocity
+
+CollisionSystem.ts: Detects and responds to collisions
+
+ProjectileSystem.ts: Manages bullets and rocket entities
+
+BuffDebuffSystem.ts: Applies timed effects like poison or speed reduction
+
+ParticleSystem.ts: Manages visual effects like explosions
+
+TrailSystem.ts: Draws trails behind rockets
+
+BoundarySystem.ts: Removes entities that go off-screen
+
+CameraSystem.ts: Follows the player and adds screen shake on impact
+
+DebugRenderSystem.ts: Renders FPS, hitboxes, and debug overlays
+
+MultiplayerSystem.ts: Sends and receives data for online multiplayer (optional)
+
+# How to Get It Running
+
+Open the project folder in a terminal
+
+Run: npm install
+
+Run: npm run dev
+
+Open your browser to the local URL (usually http://localhost:5173)
+
+# Challenges Tackled
+
+Implemented poison damage that ticks over time
+
+Created endless rocket system with proper cleanup
+
+Designed smooth screen-following camera
+
+Built lightweight, modular ECS from scratch
+
+Added particle trails, HUD, and AI behaviors
